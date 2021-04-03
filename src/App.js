@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import EggCollectionModal from "./components/EggCollectionModal";
+import HelpModal from "./components/HelpModal";
 import SettingsModal from "./components/SettingsModal";
 import Timer from "./components/Timer";
 import TaskList from "./components/TaskList";
@@ -175,6 +176,10 @@ class App extends Component {
             <button type="button">
               <p>question icon</p>
             </button>
+            <HelpModal
+              displayModal={this.state.show}
+              closeModal={this.selectModal}
+            />
             <button onClick={() => this.selectModal()}>
               <p>setting icon</p>
             </button>
