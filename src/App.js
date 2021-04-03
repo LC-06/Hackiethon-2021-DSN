@@ -43,8 +43,11 @@ class App extends Component {
     });
   };
 
-  handleTimeChange = e => {
-    this.setState({ workTime: e.target.value * 60 });
+  onChange = newValue => {
+    this.setState({
+      workTime: newValue * 60,
+      remainingTime: newValue * 60,
+    });
   };
 
   timeRemaining = () => {
@@ -238,7 +241,7 @@ class App extends Component {
             <SettingsModal
               displayModal={this.state.show}
               closeModal={this.closeModal}
-              handleTime={this.handleTimeChange}
+              onChange={this.onChange}
             />
           </div>
         </div>
