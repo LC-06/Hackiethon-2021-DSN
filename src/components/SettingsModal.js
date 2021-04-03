@@ -47,7 +47,7 @@ export default class SettingsModal extends Component {
           <span
             className="close"
             onClick={e => {
-              this.props.onChange(this.state.workTime);
+              this.props.onChange(this.state.time);
               this.props.closeModal(e);
             }}>
             <h3>submit</h3>
