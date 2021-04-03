@@ -19,7 +19,7 @@
   padding-bottom: 1vh;
 }
 
-.startButton {
+.start-button {
   font-family: "Rubik", sans-serif;
   font-size: 1.75vh;
   font-weight: bold;
@@ -28,4 +28,5 @@
   border-radius: 15px;
   background-color: #f88484;
   outline: none;
+  cursor: pointer;
 }

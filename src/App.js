@@ -1,18 +1,24 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCog,
+  faEgg,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 import EggCollectionModal from "./components/EggCollectionModal";
 import HelpModal from "./components/HelpModal";
 import SettingsModal from "./components/SettingsModal";
+import AddTaskModal from "./components/AddTaskModal";
 import Timer from "./components/Timer";
 import TaskList from "./components/TaskList";
+import CompletedTaskList from "./components/CompletedTaskList";
 
 import "./App.css";
 
 class App extends Component {
   state = {
-    show: false,
+    show: "",
     workTime: 25 * 60,
     longBreak: 15 * 60,
     shortBreak: 5 * 60,
@@ -25,10 +31,20 @@ class App extends Component {
     completedTasks: [],
   };
 
-  selectModal = () => {
+  selectModal = modal => {
     this.setState({
-      show: !this.state.show,
+      show: modal,
     });
+  };
+
+  closeModal = () => {
+    this.setState({
+      show: "",
+    });
+  };
+
+  handleTimeChange = e => {
+    this.setState({ workTime: e.target.value * 60 });
   };
 
   timeRemaining = () => {
@@ -67,6 +83,19 @@ class App extends Component {
     clearInterval(this.timer);
 
     if (this.state.mode === "work") {
+      let currTask = this.state.tasks.shift();
+      currTask.completed += 1;
+
+      if (currTask.completed === currTask.total) {
+        this.setState({
+          completedTasks: [...this.state.completedTasks, currTask],
+        });
+      } else {
+        this.setState({
+          tasks: [currTask, ...this.state.tasks],
+        });
+      }
+
       if (this.state.pomos > 0 && this.state.pomos % 4 === 0) {
         this.setState(prevState => {
           return {
@@ -91,6 +120,25 @@ class App extends Component {
     }
   };
 
+  addTask = task => {
+    this.setState({
+      tasks: [
+        ...this.state.tasks,
+        {
+          name: task.name,
+          completed: 0,
+          total: task.pomos,
+        },
+      ],
+    });
+  };
+
+  clearTasks = () => {
+    this.setState({
+      tasks: [],
+    });
+  };
+
   currentTask = () => {
     if (this.state.tasks.length === 0) {
       return "Add a task to start collecting eggs!";
@@ -107,8 +155,10 @@ class App extends Component {
 
   nextLongBreak = () => {
     let totalPomos = this.state.tasks.reduce((total, curr) => {
-      return total + curr;
+      return total + parseInt(curr.total);
     }, 0);
+
+    console.log(totalPomos);
 
     let d;
     if (totalPomos >= 4) {
@@ -118,18 +168,18 @@ class App extends Component {
       );
       return this.createTimeString(d);
     } else {
-      return this.endTime();
+      return this.finishTime();
     }
   };
 
-  endTime = () => {
+  finishTime = () => {
     let d;
 
     if (this.state.tasks.length === 0) {
       d = new Date();
     } else {
       let totalPomos = this.state.tasks.reduce((total, curr) => {
-        return total + curr.pomos;
+        return total + parseInt(curr.total);
       }, 0);
 
       let nLongBreaks = Math.trunc(totalPomos / 4);
@@ -146,12 +196,6 @@ class App extends Component {
     return this.createTimeString(d);
   };
 
-  clearTasks = () => {
-    this.setState({
-      tasks: [],
-    });
-  };
-
   render() {
     return (
       <div className="App">
@@ -165,30 +209,36 @@ class App extends Component {
             </div>
           </div>
           <div className="right">
-            <button onClick={() => this.selectModal()}>
-              <i class="fas fa-egg" />
-              <p>egg icon</p>
+            <button
+              className="toolbar-button"
+              onClick={() => this.selectModal("egg")}
+            >
+              <FontAwesomeIcon icon={faEgg} size="3x" />
             </button>
             <EggCollectionModal
               displayModal={this.state.show}
-              closeModal={this.selectModal}
+              closeModal={this.closeModal}
             />
-            <button type="button">
-              <p>question icon</p>
+            <button
+              className="toolbar-button"
+              onClick={() => this.selectModal("help")}
+            >
+              <FontAwesomeIcon icon={faQuestionCircle} size="3x" />
             </button>
             <HelpModal
               displayModal={this.state.show}
-              closeModal={this.selectModal}
+              closeModal={this.closeModal}
             />
-            <button onClick={() => this.selectModal()}>
-              <p>setting icon</p>
+            <button
+              className="toolbar-button"
+              onClick={() => this.selectModal("settings")}
+            >
+              <FontAwesomeIcon icon={faCog} size="3x" />
             </button>
             <SettingsModal
               displayModal={this.state.show}
-              closeModal={this.selectModal}
-              workTime={this.workTime}
-              longBreak={this.longBrak}
-              shortBreak={this.shortBreak}
+              closeModal={this.closeModal}
+              handleTime={this.handleTimeChange}
             />
           </div>
         </div>
@@ -203,19 +253,20 @@ class App extends Component {
           <div className="info-container">
             <div className="info">Current task: {this.currentTask()}</div>
             <div className="info">Next long break: {this.nextLongBreak()}</div>
-            <div className="info">Finish time: {this.endTime()}</div>
+            <div className="info">Finish time: {this.finishTime()}</div>
           </div>
-          <div className="tasks">
-            <div className="task-heading-container">
-              <div className="task-heading">Tasks</div>
-              <button className="plusButton" onClick="">
-                <FontAwesomeIcon icon={faPlus} size="lg" />
-              </button>
-            </div>
-            <hr className="divider" />
-            <TaskList tasks={this.state.tasks} />
-            <button onClick={this.clearTasks}>Clear</button>
-          </div>
+          <AddTaskModal
+            displayModal={this.state.show}
+            closeModal={this.closeModal}
+            addTask={this.addTask}
+          />
+          <TaskList
+            tasks={this.state.tasks}
+            selectModal={() => this.selectModal("add")}
+            closeModal={this.closeModal}
+            clearTasks={this.clearTasks}
+          />
+          <CompletedTaskList tasks={this.state.completedTasks} />
         </div>
       </div>
     );

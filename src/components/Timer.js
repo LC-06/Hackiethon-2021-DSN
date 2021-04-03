@@ -38,11 +38,11 @@ class Timer extends Component {
         <div className="message">{this.getMessage(mode)}</div>
         <div>
           {isRunning ? (
-            <button className="startButton" onClick={() => stopTimer()}>
+            <button className="start-button" onClick={() => stopTimer()}>
               STOP
             </button>
           ) : (
-            <button className="startButton" onClick={() => startTimer()}>
+            <button className="start-button" onClick={() => startTimer()}>
               START
             </button>
           )}

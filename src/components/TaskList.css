@@ -1,0 +1,71 @@
+.task {
+  border-radius: 20px;
+  background-color: #35d276;
+  display: flex;
+  justify-content: space-between;
+  padding: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+
+.completed-task {
+  border-radius: 20px;
+  background-color: #56ccf2;
+}
+
+.task-text {
+  font-size: 1.75vh;
+}
+
+.no-task-message {
+  font-size: 2vh;
+  text-align: center;
+  padding: 2vh;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+}
+
+.task-heading-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-heading {
+  font-size: 2vh;
+  font-weight: bold;
+}
+
+.plus-button {
+  font-size: 1.5vh;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.divider {
+  width: 25vw;
+  height: 5;
+  background-color: #001b50;
+}
+
+.clear-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-button {
+  font-family: "Rubik", sans-serif;
+  font-size: 1.75vh;
+  font-weight: bold;
+  border: none;
+  padding: 1vh 2vh 1vh;
+  border-radius: 15px;
+  background-color: #f88484;
+  outline: none;
+  max-width: 30%;
+}
