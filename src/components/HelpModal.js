@@ -1,7 +1,6 @@
 import React from "react";
-import './EggCollectionModal';
 
-const EggCollectionModal = props => {
+const HelpModal = props => {
   
   function closeModal (e) {
     e.stopPropagation()
@@ -10,12 +9,12 @@ const EggCollectionModal = props => {
 
   let modal = (
     <div className="modal" onClick={ closeModal }>
-      <div className="collection-modal-content" onClick={ e => e.stopPropagation() }>
+      <div className="help-modal-content" onClick={ e => e.stopPropagation() }>
         <div className="modal-header">
-          <h2>Your Coll-egg-tion</h2>
+          <h2>Help</h2>
         </div>
         <div className="modal-body">
-          <p>*the body*</p>
+          <p>*tbd*</p>
         </div>
         <span className="close" onClick={ closeModal }>
           x
@@ -26,4 +25,4 @@ const EggCollectionModal = props => {
   return ( props.displayModal ? modal : null );
 }
 
-export default EggCollectionModal;
+export default HelpModal;
