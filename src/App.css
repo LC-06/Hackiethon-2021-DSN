@@ -1,38 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&family=Rubik&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap');
+
 .App {
-  text-align: center;
+  font-family: "Rubik", sans-serif;
+  color: #001b50;
+  display: flex;
+  flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  display: flex;
+  justify-content: space-between;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.heading {
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  font-size: 6vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.subheading {
+  padding-bottom: 4vh;
+}
+
+.body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.modal {
+  /* background-color: rgba(107, 107, 107, 0.4); */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto; /* Enable scroll if needed */
+  padding-top: 80px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal-content {
+  font-family: 'Inconsolata', monospace;
+  color: #001b50;
+  background-color: #f6fff5;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  padding: 10px;
+  border-radius: 20px;
+  border-color: 20px solid #00a82f;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* Close button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }

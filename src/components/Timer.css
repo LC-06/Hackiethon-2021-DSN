@@ -1,0 +1,29 @@
+.timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #001b50;
+  padding: 3vh;
+  border-radius: 20px;
+  width: 20vw;
+  max-width: 20vw;
+}
+
+.time {
+  font-size: 12vh;
+}
+
+.message {
+  font-size: 3vh;
+  padding-bottom: 1vh;
+}
+
+.startButton {
+  font-family: "Rubik", sans-serif;
+  border: none;
+  padding: 1vh 2vh 1vh;
+  border-radius: 15px;
+  background-color: #f88484;
+  outline: none;
+}
