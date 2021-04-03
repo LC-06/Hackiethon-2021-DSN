@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import EggCollectionModal from "./components/EggCollectionModal";
 import SettingsModal from "./components/SettingsModal";
@@ -105,7 +107,7 @@ class App extends Component {
   nextLongBreak = () => {
     let totalPomos = this.state.tasks.reduce((total, curr) => {
       return total + curr;
-    });
+    }, 0);
 
     let d;
     if (totalPomos >= 4) {
@@ -193,16 +195,19 @@ class App extends Component {
             stopTimer={this.stopTimer}
             startTimer={this.startTimer}
           />
-          <div className="info">
-            <div>Current task: {this.currentTask()}</div>
-            <div>Next long break: {this.nextLongBreak()}</div>
-            <div>Finish time: {this.endTime()}</div>
+          <div className="info-container">
+            <div className="info">Current task: {this.currentTask()}</div>
+            <div className="info">Next long break: {this.nextLongBreak()}</div>
+            <div className="info">Finish time: {this.endTime()}</div>
           </div>
           <div className="tasks">
-            <div className="taskHeading">
-              <div>Tasks</div>
-              <button onClick="">plus button</button>
+            <div className="task-heading-container">
+              <div className="task-heading">Tasks</div>
+              <button className="plusButton" onClick="">
+                <FontAwesomeIcon icon={faPlus} size="lg" />
+              </button>
             </div>
+            <hr className="divider" />
             <TaskList tasks={this.state.tasks} />
             <button onClick={this.clearTasks}>Clear</button>
           </div>

@@ -21,6 +21,8 @@
 
 .startButton {
   font-family: "Rubik", sans-serif;
+  font-size: 1.75vh;
+  font-weight: bold;
   border: none;
   padding: 1vh 2vh 1vh;
   border-radius: 15px;
