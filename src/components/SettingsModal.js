@@ -15,15 +15,33 @@ export default class SettingsModal extends Component {
   }
 
   handleWorkTimeChange = e => {
-    this.setState({ workTime: e.target.value });
+    let value = e.target.value;
+    if (value <= 0) {
+      e.target.setCustomValidity("Time cannot be less than 1!");
+    } else {
+      e.target.setCustomValidity("");
+      this.setState({ workTime: e.target.value });
+    }
   };
 
   handleLongBreakChange = e => {
-    this.setState({ longBreak: e.target.value });
+    let value = e.target.value;
+    if (value <= 0) {
+      e.target.setCustomValidity("Time cannot be less than 1!");
+    } else {
+      e.target.setCustomValidity("");
+      this.setState({ longBreak: e.target.value });
+    }
   };
 
   handleShortBreakChange = e => {
-    this.setState({ shortBreak: e.target.value });
+    let value = e.target.value;
+    if (value <= 0) {
+      e.target.setCustomValidity("Time cannot be less than 1!");
+    } else {
+      e.target.setCustomValidity("");
+      this.setState({ shortBreak: e.target.value });
+    }
   };
 
   render() {
@@ -44,24 +62,27 @@ export default class SettingsModal extends Component {
               <div className="input-title">Work Time:</div>
               <input
                 type="number"
+                id="number-input"
                 className="input-time"
-                defaultValue="25"
+                defaultValue={this.state.workTime}
                 onChange={this.handleWorkTimeChange}
               />
               <span className="minutes">minutes</span>
               <div className="input-title">Long Break:</div>
               <input
                 type="number"
+                id="number-input"
                 className="input-time"
-                defaultValue="15"
+                defaultValue={this.state.longBreak}
                 onChange={this.handleLongBreakChange}
               />
               <span className="minutes">minutes</span>
               <div className="input-title">Short Break:</div>
               <input
                 type="number"
+                id="number-input"
                 className="input-time"
-                defaultValue="5"
+                defaultValue={this.state.shortBreak}
                 onChange={this.handleShortBreakChange}
               />
               <span className="minutes">minutes</span>

@@ -88,7 +88,9 @@ class App extends Component {
   };
 
   stopTimer = () => {
+    console.log(`timer before is ${this.timer}`)
     clearInterval(this.timer);
+    console.log(`timer after is ${this.timer}`)
 
     this.setState({
       isRunning: !this.state.isRunning,
