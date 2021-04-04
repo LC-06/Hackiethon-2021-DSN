@@ -177,14 +177,11 @@ class App extends Component {
       return prev + parseInt(curr.total);
     }, 0);
 
-    console.log(`totalpomos is ${totalPomos}`);
-    console.log(`shortBreak is ${this.state.shortBreak / 60}`);
-
     let d;
     if (totalPomos >= 4) {
       d = new Date();
       d = new Date(
-        d.getTime() + this.state.workTime * 4 + this.state.shortBreak * 3
+        d.getTime() + this.state.workTime * 4 * 1000 + this.state.shortBreak * 3 * 1000
       );
       return this.createTimeString(d);
     } else {
@@ -193,14 +190,17 @@ class App extends Component {
   };
 
   finishTime = () => {
-    let d;
+    let d1, d2;
 
     if (this.state.tasks.length === 0) {
-      d = new Date();
+      d2 = new Date();
     } else {
       let totalPomos = this.state.tasks.reduce((prev, curr) => {
-        return prev + parseInt(curr.total);
+        return prev + parseInt(curr.total)
       }, 0);
+
+      console.log(`totalPomos is ${totalPomos}`)
+      console.log(`shortBreak is ${this.state.shortBreak/60} min`)
 
       let nLongBreaks = Math.trunc(totalPomos / 4);
       let nShortBreaks = totalPomos - nLongBreaks;
@@ -209,11 +209,16 @@ class App extends Component {
         nLongBreaks * this.state.longBreak +
         nShortBreaks * this.state.shortBreak;
 
-      d = new Date();
-      d = new Date(d.getTime() + totalSeconds);
+      console.log(`nLongBreaks is ${nLongBreaks}`)
+      console.log(`nShortBreaks is ${nShortBreaks}`)
+      console.log(`totalSeconds is ${totalSeconds/60} min`)
+      d1 = new Date();
+      d2 = new Date(d1.getTime() + totalSeconds * 1000);
+      console.log(`finish time should be ${d2}`)
+
     }
 
-    return this.createTimeString(d);
+    return this.createTimeString(d2);
   };
 
   render() {
