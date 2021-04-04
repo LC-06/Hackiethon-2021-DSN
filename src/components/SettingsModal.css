@@ -1,6 +1,6 @@
 .settings-bg {
   background-color: #ffd6de;
-  max-width: 25%;
+  max-width: 32%;
   font-size: 2vh;
 }
 
@@ -14,7 +14,7 @@
   border: none;
   border-radius: 20px;
   outline: none;
-  max-width: 30%;
+  max-width: 40%;
   margin: 1vh 0vh 3vh;
   font-size: 2vh;
 }
