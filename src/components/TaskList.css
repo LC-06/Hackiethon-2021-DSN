@@ -11,6 +11,11 @@
 .completed-task {
   border-radius: 20px;
   background-color: #56ccf2;
+  display: flex;
+  justify-content: space-between;
+  padding: 1vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
 }
 
 .task-text {

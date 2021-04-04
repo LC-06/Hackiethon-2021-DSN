@@ -15,6 +15,8 @@ const AddTaskModal = props => {
   };
 
   function closeModal(e) {
+    setTask("");
+    setPomos(0);
     e.stopPropagation();
     props.closeModal();
   }

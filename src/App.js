@@ -14,22 +14,77 @@ import Timer from "./components/Timer";
 import TaskList from "./components/TaskList";
 import CompletedTaskList from "./components/CompletedTaskList";
 
+import egg11 from "./assets/1.1.png";
+import egg12 from "./assets/1.2.png";
+import egg13 from "./assets/1.3.png";
+import egg14 from "./assets/1.4.png";
+import egg21 from "./assets/2.1.png";
+import egg22 from "./assets/2.2.png";
+import egg23 from "./assets/2.3.png";
+import egg24 from "./assets/2.4.png";
+import egg31 from "./assets/3.1.png";
+import egg32 from "./assets/3.2.png";
+import egg33 from "./assets/3.3.png";
+import egg34 from "./assets/3.4.png";
+import egg41 from "./assets/4.1.png";
+import egg42 from "./assets/4.2.png";
+import egg43 from "./assets/4.3.png";
+import egg44 from "./assets/4.4.png";
+import egg51 from "./assets/5.1.png";
+import egg52 from "./assets/5.2.png";
+import egg53 from "./assets/5.3.png";
+import egg54 from "./assets/5.4.png";
+
 import "./App.css";
 
 class App extends Component {
-  state = {
-    show: "",
-    workTime: 25 * 60,
-    longBreak: 15 * 60,
-    shortBreak: 5 * 60,
-    remainingTime: 25 * 60,
-    pomos: 0,
-    mode: "work",
-    isRunning: false,
-    timer: null,
-    tasks: [],
-    completedTasks: [],
-    eggs: Array(5).fill(false),
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: "",
+      workTime: 1,
+      longBreak: 1,
+      shortBreak: 1,
+      remainingTime: 1,
+      pomos: 0,
+      mode: "work",
+      isRunning: false,
+      timer: null,
+      tasks: [],
+      completedTasks: [],
+      eggs: [],
+      currentEggIndex: 0,
+      eggPics: [
+        [egg11, egg21, egg31, egg41, egg51],
+        [egg12, egg22, egg32, egg42, egg52],
+        [egg13, egg23, egg33, egg43, egg53],
+        [egg14, egg24, egg34, egg44, egg54],
+      ],
+    };
+  }
+
+  componentDidMount() {
+    this.generateEggs();
+  }
+
+  generateEggs = () => {
+    const nEggs = 4;
+    let eggs = [];
+    for (let i = 0; i < nEggs; i++) {
+      eggs.push({
+        id: i + 1,
+        phase: 1,
+        cracked: false,
+      });
+    }
+
+    this.setState({ eggs: eggs });
+  };
+
+  getCurrentEggImage = () => {
+    const egg = this.state.eggs[this.state.currentEggIndex];
+    if (!egg) return egg11;
+    return this.state.eggPics[egg.id - 1][egg.phase - 1];
   };
 
   selectModal = modal => {
@@ -88,9 +143,7 @@ class App extends Component {
   };
 
   stopTimer = () => {
-    console.log(`timer before is ${this.timer}`)
     clearInterval(this.timer);
-    console.log(`timer after is ${this.timer}`)
 
     this.setState({
       isRunning: !this.state.isRunning,
@@ -98,15 +151,36 @@ class App extends Component {
   };
 
   finishTimer = () => {
+    this.setState({
+      isRunning: false,
+    });
+
     clearInterval(this.timer);
 
     if (this.state.mode === "work") {
+      this.setState(prevState => {
+        return {
+          pomos: prevState.pomos + 1,
+        };
+      });
+
       let currTask = this.state.tasks.shift();
-      currTask.completed += 1;
+      if (currTask.completed < currTask.total) {
+        currTask.completed += 1;
+      }
 
       if (currTask.completed === currTask.total) {
         this.setState({
           completedTasks: [...this.state.completedTasks, currTask],
+        });
+
+        let currEgg = this.state.eggs[this.state.currentEggIndex];
+        currEgg.phase++;
+
+        if (currEgg.phase === 5) currEgg.cracked = true;
+
+        this.setState({
+          eggs: [currEgg, ...this.state.eggs],
         });
       } else {
         this.setState({
@@ -117,7 +191,6 @@ class App extends Component {
       if (this.state.pomos > 0 && this.state.pomos % 4 === 0) {
         this.setState(prevState => {
           return {
-            pomos: prevState.pomos + 1,
             mode: "long",
             remainingTime: prevState.longBreak,
           };
@@ -125,15 +198,24 @@ class App extends Component {
       } else {
         this.setState(prevState => {
           return {
-            pomos: prevState.pomos + 1,
             mode: "short",
             remainingTime: prevState.shortBreak,
           };
         });
       }
     } else {
+      if (this.state.mode === "long") {
+        this.setState(prevState => {
+          return {
+            currentEggIndex: prevState.currentEggIndex + 1,
+          };
+        });
+        console.log(this.state.eggs[this.state.currentEggIndex]);
+      }
+
       this.setState({
         remainingTime: this.state.workTime,
+        mode: "work",
       });
     }
   };
@@ -147,7 +229,7 @@ class App extends Component {
         {
           name: task.name,
           completed: 0,
-          total: task.pomos,
+          total: parseInt(task.pomos),
         },
       ],
     });
@@ -182,7 +264,9 @@ class App extends Component {
     if (totalPomos >= 4) {
       d = new Date();
       d = new Date(
-        d.getTime() + this.state.workTime * 4 * 1000 + this.state.shortBreak * 3 * 1000
+        d.getTime() +
+          this.state.workTime * 4 * 1000 +
+          this.state.shortBreak * 3 * 1000
       );
       return this.createTimeString(d);
     } else {
@@ -197,11 +281,8 @@ class App extends Component {
       d2 = new Date();
     } else {
       let totalPomos = this.state.tasks.reduce((prev, curr) => {
-        return prev + parseInt(curr.total)
+        return prev + curr.total;
       }, 0);
-
-      console.log(`totalPomos is ${totalPomos}`)
-      console.log(`shortBreak is ${this.state.shortBreak/60} min`)
 
       let nLongBreaks = Math.trunc(totalPomos / 4);
       let nShortBreaks = totalPomos - nLongBreaks;
@@ -210,13 +291,8 @@ class App extends Component {
         nLongBreaks * this.state.longBreak +
         nShortBreaks * this.state.shortBreak;
 
-      console.log(`nLongBreaks is ${nLongBreaks}`)
-      console.log(`nShortBreaks is ${nShortBreaks}`)
-      console.log(`totalSeconds is ${totalSeconds/60} min`)
       d1 = new Date();
       d2 = new Date(d1.getTime() + totalSeconds * 1000);
-      console.log(`finish time should be ${d2}`)
-
     }
 
     return this.createTimeString(d2);
@@ -245,6 +321,7 @@ class App extends Component {
               displayModal={this.state.show}
               closeModal={this.closeModal}
               eggs={this.state.eggs}
+              eggPics={this.state.eggPics}
             />
             <button
               className="toolbar-button"
@@ -272,30 +349,38 @@ class App extends Component {
           </div>
         </div>
         <div className="body">
-          <Timer
-            remainingTime={this.state.remainingTime}
-            mode={this.state.mode}
-            isRunning={this.state.isRunning}
-            stopTimer={this.stopTimer}
-            startTimer={this.startTimer}
-          />
-          <div className="info-container">
-            <div className="info">Current task: {this.currentTask()}</div>
-            <div className="info">Next long break: {this.nextLongBreak()}</div>
-            <div className="info">Finish time: {this.finishTime()}</div>
+          <img className="eggImg" src={this.getCurrentEggImage()} alt="" />
+          <div className="egg-overlay">
+            <Timer
+              className="timer"
+              remainingTime={this.state.remainingTime}
+              mode={this.state.mode}
+              isRunning={this.state.isRunning}
+              stopTimer={this.stopTimer}
+              startTimer={this.startTimer}
+            />
+            <div className="info-container">
+              <div className="info">Current task: {this.currentTask()}</div>
+              <div className="info">
+                Next long break: {this.nextLongBreak()}
+              </div>
+              <div className="info">Finish time: {this.finishTime()}</div>
+            </div>
           </div>
-          <AddTaskModal
-            displayModal={this.state.show}
-            closeModal={this.closeModal}
-            addTask={this.addTask}
-          />
-          <TaskList
-            tasks={this.state.tasks}
-            selectModal={() => this.selectModal("add")}
-            closeModal={this.closeModal}
-            clearTasks={this.clearTasks}
-          />
-          <CompletedTaskList tasks={this.state.completedTasks} />
+          <div className="task-section">
+            <AddTaskModal
+              displayModal={this.state.show}
+              closeModal={this.closeModal}
+              addTask={this.addTask}
+            />
+            <TaskList
+              tasks={this.state.tasks}
+              selectModal={() => this.selectModal("add")}
+              closeModal={this.closeModal}
+              clearTasks={this.clearTasks}
+            />
+            <CompletedTaskList tasks={this.state.completedTasks} />
+          </div>
         </div>
       </div>
     );

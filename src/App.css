@@ -30,6 +30,30 @@
   align-items: center;
 }
 
+.eggImg {
+  position: absolute;
+  text-align: center;
+  z-index: 4;
+  width: 23%;
+  height: auto;
+  opacity: 60%;
+}
+
+.egg-overlay {
+  top: 170px;
+  position: relative;
+  text-align: center;
+  z-index: 5;
+}
+
+.task-section {
+  padding-top: 180px;
+}
+
+.timer {
+  text-align: center;
+}
+
 .info-container {
   display: flex;
   flex-direction: column;
@@ -60,6 +84,7 @@
   left: 0;
   overflow: auto; /* Enable scroll if needed */
   padding-top: 140px;
+  z-index: 10;
 }
 
 .modal-content {

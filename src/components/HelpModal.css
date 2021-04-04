@@ -1,9 +1,19 @@
 .help-bg {
   background-color: #d6edff;
-  overflow: scroll;
+  overflow: clip;
 }
 
 .help-body {
   padding: 1vh 2vh 1vh;
   max-width: 85%;
+}
+
+.help-heading {
+  font-size: 2vh;
+  padding-bottom: 0.5vh;
+}
+
+.help-para {
+  font-size: 1.4vh;
+  padding-bottom: 2vh;
 }

@@ -6,7 +6,7 @@ class CompletedTaskList extends Component {
   render() {
     let result = this.props.tasks.map(task => {
       return (
-        <div className="completed-task">
+        <div className="completed-task" key={task.name}>
           <div className="task-text">{task.name}</div>
         </div>
       );

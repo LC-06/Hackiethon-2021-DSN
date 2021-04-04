@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEgg, faSmile, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEgg, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import "./EggCollectionModal.css";
 
@@ -10,17 +10,22 @@ const EggCollectionModal = props => {
     props.closeModal();
   }
 
-  const eggs = props.eggs.map(egg => {
+  const eggs = props.eggs.map((egg, index) => {
+    console.log(index);
     return (
-      <div className="egg">
-        {egg === false ? (
+      <div className="egg" key={egg.id}>
+        {egg.cracked === false ? (
           <FontAwesomeIcon icon={faEgg} size={"6x"} />
         ) : (
-          <FontAwesomeIcon icon={faSmile} size={"6x"} />
+          <img src={props.eggPics[index][0]} alt="" />
         )}
       </div>
     );
   });
+
+  let cracked = props.eggs.reduce((prev, curr) => {
+    return prev + (curr.cracked ? 1 : 0);
+  }, 0);
 
   let modal = (
     <div className="modal" onClick={closeModal}>
@@ -31,7 +36,9 @@ const EggCollectionModal = props => {
         <div className="modal-header">
           <div className="modal-title">Your Coll-egg-tion</div>
           <div className="modal-header-right">
-            <div className="modal-title">0 of 6</div>
+            <div className="modal-title">
+              {cracked} of {props.eggs.length}
+            </div>
             <div className="close" onClick={closeModal}>
               <FontAwesomeIcon icon={faTimes} />
             </div>
@@ -41,6 +48,7 @@ const EggCollectionModal = props => {
       </div>
     </div>
   );
+
   return props.displayModal === "egg" ? modal : null;
 };
 
