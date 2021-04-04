@@ -10,6 +10,7 @@
 }
 
 .add-name-input {
+  background-color: #f5fffe;
   padding: 2vh 1vh 2vh;
   border: none;
   border-radius: 20px;
@@ -30,6 +31,7 @@
 }
 
 .add-pomos-input {
+  background-color: #f5fffe;
   margin-left: 1vh;
   padding: 1vh 2vh 1vh;
   font-size: 2vh;
@@ -46,7 +48,10 @@
 
 .add-task-button {
   font-family: "Rubik", sans-serif;
+  font-size: 1.5vh;
   font-weight: bold;
+  background-color: #f5fffe;
+  color: #001b50;
   border-radius: 20px;
   border: none;
   outline: none;

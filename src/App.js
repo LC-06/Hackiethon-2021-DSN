@@ -174,13 +174,14 @@ class App extends Component {
           completedTasks: [...this.state.completedTasks, currTask],
         });
 
-        let currEgg = this.state.eggs[this.state.currentEggIndex];
-        currEgg.phase++;
-
-        if (currEgg.phase === 5) currEgg.cracked = true;
+        let eggsCopy = [...this.state.eggs];
+        let currEggCopy = { ...eggsCopy[this.state.currentEggIndex] };
+        currEggCopy.phase++;
+        if (currEggCopy.phase === 5) currEggCopy.cracked = true;
+        eggsCopy[this.state.currentEggIndex] = currEggCopy;
 
         this.setState({
-          eggs: [currEgg, ...this.state.eggs],
+          eggs: eggsCopy,
         });
       } else {
         this.setState({
