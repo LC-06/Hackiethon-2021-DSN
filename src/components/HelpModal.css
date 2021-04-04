@@ -2,3 +2,8 @@
   background-color: #d6edff;
   overflow: scroll;
 }
+
+.help-body {
+  padding: 1vh 2vh 1vh;
+  max-width: 85%;
+}

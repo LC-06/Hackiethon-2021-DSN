@@ -19,7 +19,7 @@ const HelpModal = props => {
             <FontAwesomeIcon icon={faTimes} />
           </div>
         </div>
-        <div className="modal-body">
+        <div className="help-body">
           <h2>What is a Pomodoro?</h2>
           <p>
             Pomodoro is a proven effective technique that involves completing tasks in 25 minute segments and short breaks in between. Once four tasks are completed, your current egg will crack open, added to your coll-egg-tion and a new egg will appear. You are able to change the number of pomodoros for each task. By default, a pomodoro is 25 minutes but can be changed in the settings.
