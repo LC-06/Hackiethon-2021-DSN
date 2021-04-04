@@ -42,10 +42,10 @@ class App extends Component {
     super(props);
     this.state = {
       show: "",
-      workTime: 1,
+      workTime: 25 * 60,
       longBreak: 15 * 60,
-      shortBreak: 1,
-      remainingTime: 1,
+      shortBreak: 5 * 60,
+      remainingTime: 25 * 60,
       pomos: 0,
       mode: "work",
       isRunning: false,
