@@ -42,10 +42,10 @@ class App extends Component {
     super(props);
     this.state = {
       show: "",
-      workTime: 25 * 60,
+      workTime: 1,
       longBreak: 15 * 60,
-      shortBreak: 5 * 60,
-      remainingTime: 25 * 60,
+      shortBreak: 1,
+      remainingTime: 1,
       pomos: 0,
       mode: "work",
       isRunning: false,
@@ -110,12 +110,24 @@ class App extends Component {
     this.setState({
       longBreak: newValue * 60,
     });
+
+    if (this.state.mode === "long") {
+      this.setState({
+        remainingTime: newValue * 60,
+      });
+    }
   };
 
   onShortBreakChange = newValue => {
     this.setState({
       shortBreak: newValue * 60,
     });
+
+    if (this.state.mode === "short") {
+      this.setState({
+        remainingTime: newValue * 60,
+      });
+    }
   };
 
   timeRemaining = () => {
@@ -308,7 +320,7 @@ class App extends Component {
             <div className="subheading">
               {" "}
               Break open your egg as you complete your tasks! {"\n"} Being
-              productive has never been more fun.
+              productive has never been more fun!
             </div>
           </div>
           <div className="right">
