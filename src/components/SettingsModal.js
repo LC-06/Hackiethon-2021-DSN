@@ -16,18 +16,29 @@ export default class SettingsModal extends Component {
 
   handleWorkTimeChange = e => {
     let value = e.target.value;
+    let field = document.getElementById("workTime-input");
     if (value <= 0) {
-      e.target.setCustomValidity("Time cannot be less than 1!");
-    } else {
-      e.target.setCustomValidity("");
+      field.setCustomValidity("Time cannot be less than 1!");
+      field.reportValidity();
+    } else if (value > 60) {
+      field.setCustomValidity("Time cannot be longer than 60!");
+      field.reportValidity();
+    } 
+    else {
+      field.setCustomValidity("here");
       this.setState({ workTime: e.target.value });
     }
   };
 
   handleLongBreakChange = e => {
     let value = e.target.value;
+    let field = document.getElementById("longBreak-input");
     if (value <= 0) {
-      e.target.setCustomValidity("Time cannot be less than 1!");
+      field.setCustomValidity("Time cannot be less than 1!");
+      field.reportValidity();
+    } else if (value > 60) {
+      field.setCustomValidity("Time cannot be longer than 60!");
+      field.reportValidity();
     } else {
       e.target.setCustomValidity("");
       this.setState({ longBreak: e.target.value });
@@ -36,8 +47,13 @@ export default class SettingsModal extends Component {
 
   handleShortBreakChange = e => {
     let value = e.target.value;
+    let field = document.getElementById("shortBreak-input");
     if (value <= 0) {
-      e.target.setCustomValidity("Time cannot be less than 1!");
+      field.setCustomValidity("Time cannot be less than 1!");
+      field.reportValidity();
+    } else if (value > 60) {
+      field.setCustomValidity("Time cannot be longer than 60!");
+      field.reportValidity();
     } else {
       e.target.setCustomValidity("");
       this.setState({ shortBreak: e.target.value });
@@ -62,7 +78,7 @@ export default class SettingsModal extends Component {
               <div className="input-title">Work Time:</div>
               <input
                 type="number"
-                id="number-input"
+                id="workTime-input"
                 className="input-time"
                 defaultValue={this.state.workTime}
                 onChange={this.handleWorkTimeChange}
@@ -71,7 +87,7 @@ export default class SettingsModal extends Component {
               <div className="input-title">Long Break:</div>
               <input
                 type="number"
-                id="number-input"
+                id="longBreak-input"
                 className="input-time"
                 defaultValue={this.state.longBreak}
                 onChange={this.handleLongBreakChange}
@@ -80,7 +96,7 @@ export default class SettingsModal extends Component {
               <div className="input-title">Short Break:</div>
               <input
                 type="number"
-                id="number-input"
+                id="shortBreak-input"
                 className="input-time"
                 defaultValue={this.state.shortBreak}
                 onChange={this.handleShortBreakChange}

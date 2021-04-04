@@ -175,7 +175,6 @@ class App extends Component {
 
   nextLongBreak = () => {
     let totalPomos = this.state.tasks.reduce((prev, curr) => {
-      // return total + parseInt(curr.total);
       return prev + parseInt(curr.total);
     }, 0);
 
