@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&family=Rubik&display=swap");
+
+.add-bg {
+  background-color: #9dc5f3;
+  max-width: 25%;
+  max-height: 25%;
+  font-size: 2vh;
+  padding-top: 80vh;
+  padding-bottom: 0vh;
+}
+
+.add-name-input {
+  padding: 2vh 1vh 2vh;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  font-size: 2vh;
+  width: 90%;
+  margin: 2vh 1vh 2vh;
+}
+
+.bottom-row {
+  display: flex;
+}
+
+.add-pomos {
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  padding: 2vh 1vh 2vh;
+}
+
+.add-pomos-input {
+  margin-left: 1vh;
+  padding: 1vh 2vh 1vh;
+  font-size: 2vh;
+  width: 30%;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+
+.add-task-right {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.add-task-button {
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 1vh 2vh 1vh;
+  margin-right: 1vw;
+  cursor: pointer;
+}

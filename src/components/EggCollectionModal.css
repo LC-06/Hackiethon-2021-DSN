@@ -1,5 +1,15 @@
-.modal-header {
+.collection-bg {
+  background-color: #f6fff5;
 }
 
-.modal-body {
+.collection-body {
+  display: flex;
+}
+
+.modal-header-right {
+  display: flex;
+}
+
+.egg {
+  padding: 1.5vw;
 }

@@ -1,0 +1,43 @@
+.settings-bg {
+  background-color: #ffd6de;
+  max-width: 25%;
+  font-size: 2vh;
+}
+
+.settings-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-time {
+  padding: 1vh 2vh 1vh;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  max-width: 30%;
+  margin: 1vh 0vh 3vh;
+  font-size: 2vh;
+}
+
+.minutes {
+  padding-left: 2vh;
+  font-size: 2vh;
+}
+
+.settings-button-container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.settings-submit {
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  font-size: 2vh;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 1vh 2vh 1vh;
+  margin: 1vh 2vh 0vh 2vh;
+  cursor: pointer;
+  background-color: #fc9fc1;
+}

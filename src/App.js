@@ -29,6 +29,7 @@ class App extends Component {
     timer: null,
     tasks: [],
     completedTasks: [],
+    eggs: Array(5).fill(false),
   };
 
   selectModal = modal => {
@@ -47,6 +48,18 @@ class App extends Component {
     this.setState({
       workTime: newValue * 60,
       remainingTime: newValue * 60,
+    });
+  };
+
+  onLongBreakChange = newValue => {
+    this.setState({
+      longBreak: newValue * 60,
+    });
+  };
+
+  onShortBreakChange = newValue => {
+    this.setState({
+      shortBreak: newValue * 60,
     });
   };
 
@@ -124,6 +137,8 @@ class App extends Component {
   };
 
   addTask = task => {
+    if (task.name === "" || task.pomos < 1) return;
+
     this.setState({
       tasks: [
         ...this.state.tasks,
@@ -157,11 +172,13 @@ class App extends Component {
   };
 
   nextLongBreak = () => {
-    let totalPomos = this.state.tasks.reduce((total, curr) => {
-      return total + parseInt(curr.total);
+    let totalPomos = this.state.tasks.reduce((prev, curr) => {
+      // return total + parseInt(curr.total);
+      return prev + parseInt(curr.total);
     }, 0);
 
-    console.log(totalPomos);
+    console.log(`totalpomos is ${totalPomos}`);
+    console.log(`shortBreak is ${this.state.shortBreak / 60}`);
 
     let d;
     if (totalPomos >= 4) {
@@ -181,8 +198,8 @@ class App extends Component {
     if (this.state.tasks.length === 0) {
       d = new Date();
     } else {
-      let totalPomos = this.state.tasks.reduce((total, curr) => {
-        return total + parseInt(curr.total);
+      let totalPomos = this.state.tasks.reduce((prev, curr) => {
+        return prev + parseInt(curr.total);
       }, 0);
 
       let nLongBreaks = Math.trunc(totalPomos / 4);
@@ -221,6 +238,7 @@ class App extends Component {
             <EggCollectionModal
               displayModal={this.state.show}
               closeModal={this.closeModal}
+              eggs={this.state.eggs}
             />
             <button
               className="toolbar-button"
@@ -242,6 +260,8 @@ class App extends Component {
               displayModal={this.state.show}
               closeModal={this.closeModal}
               onChange={this.onChange}
+              onLongBreakChange={this.onLongBreakChange}
+              onShortBreakChange={this.onShortBreakChange}
             />
           </div>
         </div>

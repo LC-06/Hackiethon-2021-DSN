@@ -1,6 +1,8 @@
+import React from "react";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+
+import "./HelpModal.css";
 
 const HelpModal = props => {
   function closeModal(e) {
@@ -10,17 +12,16 @@ const HelpModal = props => {
 
   let modal = (
     <div className="modal" onClick={closeModal}>
-      <div className="help-modal-content" onClick={e => e.stopPropagation()}>
+      <div className="modal-content help-bg" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Help</h2>
+          <div className="modal-title">Help</div>
+          <div className="close" onClick={closeModal}>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
         </div>
         <div className="modal-body">
           <p>*tbd*</p>
         </div>
-        <span className="close" onClick={closeModal}>
-        <FontAwesomeIcon icon={faTimes} />
-          
-        </span>
       </div>
     </div>
   );
