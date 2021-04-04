@@ -17,7 +17,11 @@ const EggCollectionModal = props => {
         {egg.cracked === false ? (
           <FontAwesomeIcon icon={faEgg} size={"6x"} />
         ) : (
-          <img src={props.eggPics[index][0]} alt="" />
+          <img
+            className="eggIMG"
+            src={props.eggPics[index][0]}
+            alt=""
+          />
         )}
       </div>
     );
